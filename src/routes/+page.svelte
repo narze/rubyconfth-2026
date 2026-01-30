@@ -8,6 +8,8 @@
 	let interval;
 	let progressInterval;
 	let sessionProgress = 0;
+	let deferredPrompt;
+	let canInstall = false;
 
 	function isCurrentOrNext(session, sessionIndex, dayIndex) {
 		if (currentSession && dayIndex === currentSession.dayIndex && sessionIndex === currentSession.sessionIndex) {
@@ -59,12 +61,33 @@
 		if (currentSession && day) {
 			sessionProgress = calculateProgress(currentSession, day);
 		}
+
+		const handleBeforeInstallPrompt = (e) => {
+			e.preventDefault();
+			deferredPrompt = e;
+			canInstall = true;
+		};
+
+		window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+		return () => {
+			window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+		};
 	});
 
 	onDestroy(() => {
 		if (interval) clearInterval(interval);
 		if (progressInterval) clearInterval(progressInterval);
 	});
+
+	async function installApp() {
+		if (deferredPrompt) {
+			deferredPrompt.prompt();
+			const { outcome } = await deferredPrompt.userChoice;
+			deferredPrompt = null;
+			canInstall = false;
+		}
+	}
 
 	function scrollToSession() {
 		const currentEl = document.querySelector('[data-session="current"]');
@@ -155,6 +178,17 @@
 <div class="min-h-screen bg-slate-900 text-white pb-48">
 	<div class="max-w-[1440px] mx-auto px-3 py-4 md:px-8 md:py-8">
 		<header class="mb-6">
+			{#if canInstall}
+				<button
+					onclick={installApp}
+					class="absolute top-4 right-4 md:top-8 md:right-8 bg-red-600 hover:bg-red-500 text-white text-xs sm:text-sm font-bold px-3 py-2 sm:px-4 rounded-lg shadow-lg transition-all flex items-center gap-2 z-50"
+				>
+					<svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+					</svg>
+					Add to Home
+				</button>
+			{/if}
 			<h1 class="text-xl sm:text-2xl md:text-4xl lg:text-6xl font-extrabold text-red-600 uppercase mb-1">
 				RubyConf TH 2026
 			</h1>

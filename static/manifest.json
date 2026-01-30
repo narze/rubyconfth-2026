@@ -1,0 +1,17 @@
+{
+  "name": "RubyConf TH 2026",
+  "short_name": "RubyConf TH",
+  "description": "RubyConf Thailand 2026 Conference Schedule",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#dc2626",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32 48x48 64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
