@@ -65,12 +65,26 @@ export function getCurrentAndNextSessions(scheduleData) {
 				nextSession = nextSessionTime 
 					? { ...sessions[i + 1], dayIndex: scheduleData.days.indexOf(day), sessionIndex: i + 1 }
 					: null;
-				break;
+				return { currentSession, nextSession, day };
 			}
 		}
+	}
+	
+	// If no current session, find the first upcoming session
+	for (const day of scheduleData.days) {
+		const sessions = day.sessions;
 		
-		if (currentSession) {
-			return { currentSession, nextSession, day };
+		for (let i = 0; i < sessions.length; i++) {
+			const session = sessions[i];
+			const sessionTime = new Date(`${day.date} ${session.time}`);
+			
+			if (now < sessionTime) {
+				return { 
+					currentSession: null, 
+					nextSession: { ...session, dayIndex: scheduleData.days.indexOf(day), sessionIndex: i }, 
+					day 
+				};
+			}
 		}
 	}
 	
