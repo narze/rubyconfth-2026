@@ -11,16 +11,6 @@
 	let deferredPrompt;
 	let canInstall = false;
 
-	function isCurrentOrNext(session, sessionIndex, dayIndex) {
-		if (currentSession && dayIndex === currentSession.dayIndex && sessionIndex === currentSession.sessionIndex) {
-			return 'current';
-		}
-		if (nextSession && dayIndex === nextSession.dayIndex && sessionIndex === nextSession.sessionIndex) {
-			return 'next';
-		}
-		return '';
-	}
-
 	function calculateProgress(currentSess, currentDay) {
 		if (!currentSess || !currentDay) return 0;
 		
@@ -89,10 +79,10 @@
 	function getSessionStyles(session, sessionIndex, dayIndex, currentDayIndex, currentSessionIndex, nextSessionIndex, nextDayIndex) {
 		if (currentSession) {
 			if (dayIndex === currentDayIndex && sessionIndex === currentSessionIndex) {
-				return 'border-2 border-green-500 bg-green-900/30 ring-2 ring-green-500 ring-opacity-50';
+				return 'border-2 border-green-500 bg-green-800/50 ring-2 ring-green-500 ring-opacity-70';
 			}
 			if (nextSession && dayIndex === nextDayIndex && sessionIndex === nextSessionIndex) {
-				return 'border-2 border-blue-500 bg-blue-900/30 ring-2 ring-blue-500 ring-opacity-50';
+				return 'border-2 border-blue-500 bg-blue-800/50 ring-2 ring-blue-500 ring-opacity-70';
 			}
 		}
 
@@ -220,9 +210,6 @@
 					<div class="space-y-3">
 						{#each day.sessions as session, sessionIndex}
 							<div
-								data-session={isCurrentOrNext(session, sessionIndex, dayIndex)}
-								data-day={dayIndex}
-								data-index={sessionIndex}
 								class="pl-3 sm:pl-6 py-2 sm:py-3 rounded {getSessionStyles(
 									session,
 									sessionIndex,
@@ -255,7 +242,7 @@
 											<img
 												src={session.image}
 												alt={session.speaker || session.title}
-												class="w-10 h-10 sm:w-16 sm:h-16 {session.type === 'keynote' ? 'sm:w-20 sm:h-20' : ''} rounded-full border-2 {session.type === 'keynote'
+												class="w-10 h-10 sm:w-16 sm:h-16 rounded-full border-2 {session.type === 'keynote'
 												? 'border-yellow-500'
 												: session.type === 'workshop'
 													? 'border-blue-500'
@@ -265,7 +252,7 @@
 											/>
 										{/if}
 
-										<div class="flex-1 min-w-0">
+										<div class="flex-1 min-w-0 pr-2">
 											<div class="flex flex-wrap items-center gap-1.5 mb-1">
 												{#if getSessionBadge(session)}
 													<span
@@ -286,18 +273,18 @@
 
 											<h3
 												class="{session.type === 'keynote' || session.type === 'workshop'
-													? 'text-sm sm:text-2xl font-bold'
+													? 'text-sm sm:text-xl font-bold'
 													: 'text-sm sm:text-xl font-semibold'} {session.type === 'keynote'
 													? 'text-yellow-400'
 													: session.type === 'workshop'
 														? 'text-blue-400'
-														: ''} line-clamp-2 leading-snug"
+														: ''} leading-snug"
 											>
 												{session.title}
 											</h3>
 
 											{#if session.speaker}
-												<p class="text-slate-300 text-xs sm:text-base line-clamp-1">{session.speaker}</p>
+												<p class="text-slate-300 text-xs sm:text-base">{session.speaker}</p>
 											{/if}
 
 											{#if session.description}
