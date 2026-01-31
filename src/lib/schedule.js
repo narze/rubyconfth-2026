@@ -19,7 +19,7 @@ export const schedule = {
 				{ time: '15:05', title: '☕ Coffee break', type: 'break' },
 				{ time: '15:35', title: 'Ruby in the 8 bit world - a small mruby VM for the Zilog Z80', speaker: 'Yuji Yokoo', image: '/images/speakers/2026/yuji_yokoo.jpg', type: 'session' },
 				{ time: '16:10', title: 'Closing keynote: Herb to ReActionView: A New Foundation for the View Layer', speaker: 'Marco Roth', image: '/images/speakers/marco_roth.jpeg', type: 'keynote' },
-				{ time: '17:00', title: 'Official Party @ The Deck', description: 'Join us for the official party at the end of day 1! All ticketholders are welcome to a relaxed evening of food, drinks, and conversation at The Deck', image: '/images/2026/thedeck.jpg', type: 'event' }
+				{ time: '17:00', title: 'Official Party @ The Deck', description: 'Join us for the official party at the end of day 1! All ticketholders are welcome to a relaxed evening of food, drinks, and conversation at <a href="https://maps.app.goo.gl/n453PcTQ4wRvD3Bu7" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline">The Deck</a>, just a five minute walk from the conference venue. Please note due to circumstances beyond our control, there is an alcohol ban in Thailand due to upcoming elections from 6pm Saturday to 6pm Sunday, so we\'ll be unable to serve alcohol at the party after 6pm.', image: '/images/2026/thedeck.jpg', type: 'event' }
 			]
 		},
 		{

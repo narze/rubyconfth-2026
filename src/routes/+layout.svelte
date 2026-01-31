@@ -10,5 +10,6 @@
 	<meta name="theme-color" content="#dc2626" />
 	<meta name="mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<title>RubyConfTH 2026 Schedule</title>
 </svelte:head>
 {@render children()}

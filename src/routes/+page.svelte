@@ -42,14 +42,11 @@
 	}
 
 	onMount(() => {
-		scrollToSession();
-		
 		interval = setInterval(() => {
 			const result = getCurrentAndNextSessions(schedule);
 			currentSession = result.currentSession;
 			nextSession = result.nextSession;
 			day = result.day;
-			scrollToSession();
 		}, 60000);
 
 		progressInterval = setInterval(() => {
@@ -88,25 +85,6 @@
 			canInstall = false;
 		}
 	}
-
-	function scrollToSession() {
-		const currentEl = document.querySelector('[data-session="current"]');
-		const nextEl = document.querySelector('[data-session="next"]');
-		
-		if (currentEl) {
-			setTimeout(() => {
-				currentEl?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-			}, 100);
-		} else if (nextEl) {
-			setTimeout(() => {
-				nextEl?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-			}, 100);
-		}
-	}
-
-	onDestroy(() => {
-		if (interval) clearInterval(interval);
-	});
 
 	function getSessionStyles(session, sessionIndex, dayIndex, currentDayIndex, currentSessionIndex, nextSessionIndex, nextDayIndex) {
 		if (currentSession) {
