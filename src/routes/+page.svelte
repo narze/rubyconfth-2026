@@ -212,7 +212,7 @@
 			</div>
 		{/if}
 
-		<div class="space-y-6">
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 			{#each schedule.days as day, dayIndex}
 				<div class="bg-slate-800 border border-slate-700 rounded-xl p-3 md:p-8 shadow-lg">
 					<h2 class="text-xl sm:text-3xl font-bold mb-4 md:mb-6 text-red-600">{day.title}</h2>
