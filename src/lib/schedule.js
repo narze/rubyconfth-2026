@@ -47,6 +47,11 @@ export const schedule = {
 
 export function getCurrentAndNextSessions(scheduleData) {
 	const now = new Date();
+	const conferenceEnd = new Date('February 1, 2026 18:00');
+	
+	if (now >= conferenceEnd) {
+		return { currentSession: null, nextSession: null, day: null };
+	}
 	
 	for (const day of scheduleData.days) {
 		const sessions = day.sessions;
