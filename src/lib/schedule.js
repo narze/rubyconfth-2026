@@ -60,7 +60,12 @@ export function getCurrentAndNextSessions(scheduleData) {
 				? new Date(`${day.date} ${sessions[i + 1].time}`)
 				: null;
 			
-			if (now >= sessionTime && (!nextSessionTime || now < nextSessionTime)) {
+			// Only treat as current if we're on the same day
+			const dayDate = new Date(day.date);
+			const nowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+			const sessionDate = new Date(sessionTime.getFullYear(), sessionTime.getMonth(), sessionTime.getDate());
+			
+			if (now >= sessionTime && (!nextSessionTime || now < nextSessionTime) && nowDate.getTime() === sessionDate.getTime()) {
 				currentSession = { ...session, dayIndex: scheduleData.days.indexOf(day), sessionIndex: i };
 				nextSession = nextSessionTime 
 					? { ...sessions[i + 1], dayIndex: scheduleData.days.indexOf(day), sessionIndex: i + 1 }
